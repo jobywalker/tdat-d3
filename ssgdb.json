@@ -1,71 +1,17 @@
 {
-    "Object": {
-        "Id": 28236,
-        "Name": "ssgdb",
-        "FQDN": "",
-        "PrincipalAlias": "ssgdb",
-        "SystemType": "database cluster",
-        "Comment": "SSG DB Pool",
-        "Importance": "",
-        "RedundancyModel": "active-passive",
-        "GeographicRedundancy": "",
-        "Location": {
-            "Name": "",
-            "Address": ""
+    "name": "ssgdb",
+    "children": [
+        {
+            "name": "DNS Database"
         },
-        "Dependencies": {
-            "On": [
-                {
-                    "Id": 127777,
-                    "Name": 1244480,
-                    "FQDN": "ssgdb03.cac.washington.edu",
-                    "PrincipalAlias": "ssgdb03.cac.washington.edu",
-                    "DependencyType": "active member",
-                    "Comment": ""
-                },
-                {
-                    "Id": 128630,
-                    "Name": 1244479,
-                    "FQDN": "ssgdb04.cac.washington.edu",
-                    "PrincipalAlias": "ssgdb04.cac.washington.edu",
-                    "DependencyType": "passive member",
-                    "Comment": ""
-                }
-            ],
-            "By": [
-                {
-                    "Id": 141703,
-                    "Name": "DNS Database",
-                    "FQDN": "",
-                    "PrincipalAlias": "DNS Database",
-                    "DependencyType": "hard dependency",
-                    "Comment": ""
-                },
-                {
-                    "Id": 127568,
-                    "Name": "Norns",
-                    "FQDN": "",
-                    "PrincipalAlias": "Norns",
-                    "DependencyType": "hard dependency",
-                    "Comment": ""
-                },
-                {
-                    "Id": 127602,
-                    "Name": "Parcae",
-                    "FQDN": "",
-                    "PrincipalAlias": "Parcae",
-                    "DependencyType": "hard dependency",
-                    "Comment": ""
-                },
-                {
-                    "Id": 128560,
-                    "Name": "Ymir",
-                    "FQDN": "",
-                    "PrincipalAlias": "Ymir",
-                    "DependencyType": "hard dependency",
-                    "Comment": ""
-                }
-            ]
+        {
+            "name": "Norns"
+        },
+        {
+            "name": "Parcae"
+        },
+        {
+            "name": "Ymir"
         }
-    }
+    ]
 }
