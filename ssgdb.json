@@ -1,17 +1,22 @@
 {
     "name": "ssgdb",
+    "href": "http://example.com",
     "children": [
         {
-            "name": "DNS Database"
+            "name": "DNS Database",
+            "href": "http://example.com"
         },
         {
-            "name": "Norns"
+            "name": "Norns",
+            "href": "http://example.com"
         },
         {
-            "name": "Parcae"
+            "name": "Parcae",
+            "href": "http://example.com"
         },
         {
-            "name": "Ymir"
+            "name": "Ymir",
+            "href": "http://example.com"
         }
     ]
 }

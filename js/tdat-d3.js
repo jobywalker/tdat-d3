@@ -68,8 +68,26 @@ function update(source) {
       .text(function(d) { return d.name; })
       .style("fill-opacity", 1e-6);
 
-    node.append("svg:title")
-        .text(function(d) { return d.name });
+//node.append("text")
+//    .attr("dy", "2em")
+//    .text(function(d) { return d.href });
+
+
+node.append("foreignObject")
+    .attr("x", 10)
+    .attr("y", 10)
+    .attr("width", 200)
+    .attr("height", 200)
+  .append("xhtml:body")
+    .style("font", "14px 'Helvetica Neue'")
+    .style("padding", "0")
+    //.html("<h3>More Text</h3><p>More info</p>");
+    .html(function(d) {
+        return   '<p><strong>TDAT</strong><br/> More info like a link: <a href="https://barista.cac.washington.edu/tdat/'+ d.name + '">' + d.name + '</a></p>'
+    });
+
+
+
 
   // Transition nodes to their new position.
   var nodeUpdate = node.transition()
@@ -131,6 +149,9 @@ function update(source) {
   });
 }
 
+
+
+
 // Toggle children.
 function toggle(d) {
   if (d.children) {
@@ -143,10 +164,9 @@ function toggle(d) {
 }
 
 
-
 $(function () {
     // document ready
 
-$('#tdat').tooltip();
+
 
 });

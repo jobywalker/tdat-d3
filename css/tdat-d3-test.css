@@ -1,5 +1,5 @@
 body {
-  overflow: hidden; }
+  /* overflow: hidden; */ }
 
 #chart, #header, #footer {
   position: absolute;
@@ -54,13 +54,14 @@ line {
 .class, .special {
   color: #1181B8; }
 
-a:link, a:visited {
+/* a:link, a:visited {
   color: #000;
-  text-decoration: none; }
+  text-decoration: none;
+}
 
 a:hover {
-  color: #666; }
-
+  color: #666;
+} */
 .hint {
   position: absolute;
   right: 0;
@@ -75,9 +76,12 @@ a:hover {
   stroke-width: 1.5px; }
 
 .node text {
-  font-size: 11px; }
+  font-size: 1em; }
 
 path.link {
   fill: none;
   stroke: #ccc;
   stroke-width: 1.5px; }
+
+foreignobject body p strong {
+  color: #EEEEEE; }
