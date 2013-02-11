@@ -3,19 +3,11 @@
     "href": "http://example.com",
     "children": [
         {
-            "name": "DNS Database",
+            "name": "ssgdb03.cac.washington.edu",
             "href": "http://example.com"
         },
         {
-            "name": "Norns",
-            "href": "http://example.com"
-        },
-        {
-            "name": "Parcae",
-            "href": "http://example.com"
-        },
-        {
-            "name": "Ymir",
+            "name": "ssgdb04.cac.washington.edu",
             "href": "http://example.com"
         }
     ]
