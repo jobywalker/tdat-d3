@@ -8,7 +8,44 @@
         },
         {
             "name": "ssgdb04.cac.washington.edu",
-            "href": "http://example.com"
+            "href": "http://example.com",
+            "children": [
+            {
+                "name": "What It Depends On",
+                "children": [
+                    {
+                    "name": "ssgdb03.cac.washington.edu",
+                    "href": "http://example.com"
+                    },
+                    {
+                    "name": "ssgdb04.cac.washington.edu",
+                    "href": "http://example.com"
+                    }
+                ]
+            },
+            {
+                "name": "Something Else",
+                "children": [
+                {
+                    "name": "DNS Database",
+                    "href": "http://example.com"
+                },
+                {
+                    "name": "Norns",
+                    "href": "http://example.com"
+                },
+                {
+                    "name": "Parcae",
+                    "href": "http://example.com"
+                },
+                {
+                    "name": "Ymir",
+                    "href": "http://example.com"
+                }
+            ]
         }
+
     ]
+}
+]
 }
