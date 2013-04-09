@@ -1,5 +1,6 @@
 {
-    "name": "ssgdb",
+    "name": "ssgdb.cac.washington.edu",
+    "short": "ssgdb.cac",
     "href": "http://example.com",
     "dependOn": [
         {

@@ -3,14 +3,14 @@ var
     // w = 2280 - m[1] - m[3],
     // h = 800 - m[0] - m[2],
     margin = {top: 10, right: 10, left: 10, bottom: 10},
-    fullWidth = 1400,
-    fullHeight = 900,
+    fullWidth = 1000,
+    fullHeight = 700,
     width = fullWidth - margin.left - margin.right,
     height = fullHeight - margin.top - margin.bottom,
     halfWidth = width/2,
     halfHeight = height/2,
     i = 0,
-    root;
+    root, t1, t2;
 
 var tree = d3.layout.tree()
     .size([height, width])
@@ -47,8 +47,8 @@ d3.json("ssgdb.json", function(json) {
   root.x0 = halfHeight;
   root.y0 = halfWidth;
 
-  var t1 = d3.layout.tree().size([height, halfWidth]).children(function(d){return d.dependOn;}),
-      t2 = d3.layout.tree().size([height, halfWidth]).children(function(d){return d.dependBy;});
+  t1 = d3.layout.tree().size([height, halfWidth]).children(function(d){return d.dependOn;}),
+  t2 = d3.layout.tree().size([height, halfWidth]).children(function(d){return d.dependBy;});
   t1.nodes(root);
   t2.nodes(root);
 
@@ -91,11 +91,11 @@ function update(source) {
   var duration = d3.event && d3.event.altKey ? 5000 : 500;
 
   // Compute the new tree layout.
-  //var nodes = tree.nodes(root).reverse();
+  //var nodes = tree.nodes(root);//.reverse();
   var nodes = toArray(root);
 
   // Normalize for fixed-depth.
-  nodes.forEach(function(d) { d.y =  d.isLeft ? width - (d.depth * 120 + halfWidth) : d.depth * 120 + halfWidth; });
+  nodes.forEach(function(d) { d.y =  d.isLeft ? halfWidth - (d.depth * 120) : d.depth * 120 + halfWidth; });
 
   // Update the nodes…
   var node = vis.selectAll("g.node")
@@ -115,7 +115,8 @@ function update(source) {
       //.attr("x", function(d) { return d.children || d._children ? -10 : 10; })
       //.attr("x", function(d) {return 10;})
       //.attr("dy", ".35em")
-      .attr("dy", function(d) { return d.isRight?14:-8;})
+      //.attr("dy", function(d) { return d.isRight?14:-8;})
+      .attr("dy", -8)
       .attr("text-anchor", "middle")
       //.attr("text-anchor", function(d) { return d.children || d._children ? "end" : "start"; })
       //.attr("text-anchor", function(d) { return "start"; })
@@ -193,7 +194,9 @@ function update(source) {
   link.exit().transition()
       .duration(duration)
       .attr("d", function(d) {
-        var o = {x: source.x, y: source.y};
+        //var p = d.source||source;
+        var p = source;
+        var o = {x: p.x, y: p.y};
         return diagonal({source: o, target: o});
       })
       .remove();
@@ -205,18 +208,51 @@ function update(source) {
   });
 }
 
+var rebuildStructure = function() {
+  root.x0 = halfHeight;
+  root.y0 = halfWidth;
 
+  t1 = d3.layout.tree().size([height, halfWidth]).children(function(d){return d.dependOn;}),
+  t2 = d3.layout.tree().size([height, halfWidth]).children(function(d){return d.dependBy;});
+  t1.nodes(root);
+  t2.nodes(root);
+
+  var rebuildChildren = function(node){
+    node.children = getChildren(node);
+    if(node.children) node.children.forEach(rebuildChildren);
+  };
+  rebuildChildren(root);
+  root.isLeft = true;
+}
 
 
 // Toggle children.
 function toggle(d) {
-  if (d.children) {
-    d._children = d.children;
-    d.children = null;
-  } else {
-    d.children = d._children;
-    d._children = null;
+  d.children = null;
+  if (d._children === true) {
+    if (d._dependOn) {
+      d.dependOn = d._dependOn;
+      d._dependOn = null;
+    }
+    if (d._dependBy) {
+      d.dependBy = d._dependBy;
+      d._dependBy = null;
+    }
+    d._children = false;
   }
+  else {
+    if (d.dependOn) {
+      d._dependOn = d.dependOn;
+      d.dependOn = null;
+      d._children = true;
+    }
+    if (d.dependBy) {
+      d._dependBy = d.dependBy;
+      d.dependBy = null;
+    }
+    d._children = true;
+  }
+  rebuildStructure();
   update(d);
 }
 
