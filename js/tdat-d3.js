@@ -3,8 +3,8 @@ var
     // w = 2280 - m[1] - m[3],
     // h = 800 - m[0] - m[2],
     margin = {top: 10, right: 10, left: 10, bottom: 10},
-    fullWidth = 1000,
-    fullHeight = 700,
+    fullWidth = 1300,
+    fullHeight = 800,
     width = fullWidth - margin.left - margin.right,
     height = fullHeight - margin.top - margin.bottom,
     halfWidth = width/2,
@@ -44,20 +44,8 @@ var vis = d3.select("#tdat").append("svg:svg")
 
 d3.json("ssgdb.json", function(json) {
   root = json;
-  root.x0 = halfHeight;
-  root.y0 = halfWidth;
 
-  t1 = d3.layout.tree().size([height, halfWidth]).children(function(d){return d.dependOn;}),
-  t2 = d3.layout.tree().size([height, halfWidth]).children(function(d){return d.dependBy;});
-  t1.nodes(root);
-  t2.nodes(root);
-
-  var rebuildChildren = function(node){
-    node.children = getChildren(node);
-    if(node.children) node.children.forEach(rebuildChildren);
-  };
-  rebuildChildren(root);
-  root.isLeft = true;
+  rebuildStructure();
 
 
   function toggleAll(d) {
@@ -95,7 +83,7 @@ function update(source) {
   var nodes = toArray(root);
 
   // Normalize for fixed-depth.
-  nodes.forEach(function(d) { d.y =  d.isLeft ? halfWidth - (d.depth * 120) : d.depth * 120 + halfWidth; });
+  nodes.forEach(function(d) { d.y =  d.isLeft ? halfWidth - (d.depth * 150) : d.depth * 150 + halfWidth; });
 
   // Update the nodes…
   var node = vis.selectAll("g.node")
@@ -130,7 +118,7 @@ function update(source) {
 
 
   node.append("foreignObject")
-      .attr("x", -35)
+      .attr("x", -45)
       .attr("y", 10)
       .attr("width", 90)
       .attr("height", 50)
@@ -139,7 +127,7 @@ function update(source) {
       .style("padding", "0")
       //.html("<h3>More Text</h3><p>More info</p>");
       .html(function(d) {
-          return   '<p style="background-color:#F3F3F3">chassis CPU<br/>critical/none<br/><a href="https://barista.cac.washington.edu/tdat/'+ d.name + '">center</a></p>';
+          return   '<div style="border:1px solid #DDD;background-color:#FFF;padding:2px;">chassis CPU<br/>critical/none<br/><a href="https://barista.cac.washington.edu/tdat/'+ d.name + '">center</a></div>';
       });
 
 
@@ -249,8 +237,8 @@ function toggle(d) {
     if (d.dependBy) {
       d._dependBy = d.dependBy;
       d.dependBy = null;
+      d._children = true;
     }
-    d._children = true;
   }
   rebuildStructure();
   update(d);
