@@ -1,11 +1,12 @@
-var m = [20, 120, 20, 120],
+var m = [10, 20, 10, 20],
     w = 1280 - m[1] - m[3],
     h = 800 - m[0] - m[2],
     i = 0,
     root;
 
 var tree = d3.layout.tree()
-    .size([h, w]);
+    .size([w, h])
+    .separation(function(a,b){return 750;});
 
 var diagonal = d3.svg.diagonal()
     .projection(function(d) { return [d.x, d.y]; });
@@ -13,12 +14,12 @@ var diagonal = d3.svg.diagonal()
 var vis = d3.select("#tdat").append("svg:svg")
     .attr("width", w + m[1] + m[3])
     .attr("height", h + m[0] + m[2])
-  .append("svg:g")
+    .append("svg:g")
     .attr("transform", "translate(" + m[3] + "," + m[0] + ")");
 
 d3.json("ssgdb.json", function(json) {
   root = json;
-  root.x0 = h / 2;
+  root.x0 = w;
   root.y0 = 0;
 
   function toggleAll(d) {
@@ -62,10 +63,12 @@ function update(source) {
       .style("fill", function(d) { return d._children ? "lightsteelblue" : "#fff"; });
 
   nodeEnter.append("svg:text")
-      .attr("x", function(d) { return d.children || d._children ? -10 : 10; })
+      //.attr("x", function(d) { return d.children || d._children ? -10 : 10; })
+      .attr("x", function(d) {return 10;})
       .attr("dy", ".35em")
-      .attr("text-anchor", function(d) { return d.children || d._children ? "end" : "start"; })
-      .text(function(d) { return d.name; })
+      //.attr("text-anchor", function(d) { return d.children || d._children ? "end" : "start"; })
+      .attr("text-anchor", function(d) { return "start"; })
+      .text(function(d) { return d.short ? d.short : d.name; })
       .style("fill-opacity", 1e-6);
 
 //node.append("text")
@@ -73,18 +76,18 @@ function update(source) {
 //    .text(function(d) { return d.href });
 
 
-node.append("foreignObject")
-    .attr("x", 10)
-    .attr("y", 10)
-    .attr("width", 200)
-    .attr("height", 200)
-  .append("xhtml:body")
-    .style("font", "14px 'Helvetica Neue'")
-    .style("padding", "0")
-    //.html("<h3>More Text</h3><p>More info</p>");
-    .html(function(d) {
-        return   '<p><strong>TDAT</strong><br/> More info like a link: <a href="https://barista.cac.washington.edu/tdat/'+ d.name + '">' + d.name + '</a></p>'
-    });
+  node.append("foreignObject")
+      .attr("x", 10)
+      .attr("y", 10)
+      .attr("width", 75)
+      .attr("height", 50)
+    .append("xhtml:body")
+      .style("font", "11px 'Helvetica Neue'")
+      .style("padding", "0")
+      //.html("<h3>More Text</h3><p>More info</p>");
+      .html(function(d) {
+          return   '<p><strong>TDAT</strong><br/> More info like a link: <a href="https://barista.cac.washington.edu/tdat/'+ d.name + '">' + d.name + '</a></p>';
+      });
 
 
 
@@ -124,7 +127,8 @@ node.append("foreignObject")
         var o = {x: source.x0, y: source.y0};
         return diagonal({source: o, target: o});
       })
-    .transition()
+      .attr("style", function(d) { return d.target.deptype==="bob" ? "stroke:#F00" : "";})
+      .transition()
       .duration(duration)
       .attr("d", diagonal);
 

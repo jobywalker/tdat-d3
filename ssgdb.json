@@ -4,21 +4,28 @@
     "children": [
         {
             "name": "ssgdb03.cac.washington.edu",
+            "short": "ssgdb03.cac",
             "href": "http://example.com"
         },
         {
             "name": "ssgdb04.cac.washington.edu",
+            "short": "ssgdb04.cac",
             "href": "http://example.com",
+            "deptype": "bob",
             "children": [
             {
                 "name": "What It Depends On",
+                "deptype": "bob",
                 "children": [
                     {
-                    "name": "ssgdb03.cac.washington.edu",
+                    "name": "something.cac.washington.edu",
+                    "short": "something.cac",
                     "href": "http://example.com"
                     },
                     {
-                    "name": "ssgdb04.cac.washington.edu",
+                    "name": "else.cac.washington.edu",
+                    "short": "else.cac",
+                    "deptype": "bob",
                     "href": "http://example.com"
                     }
                 ]
