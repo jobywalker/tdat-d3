@@ -1,7 +1,7 @@
 {
     "name": "ssgdb",
     "href": "http://example.com",
-    "children": [
+    "dependOn": [
         {
             "name": "ssgdb03.cac.washington.edu",
             "short": "ssgdb03.cac",
@@ -12,47 +12,65 @@
             "short": "ssgdb04.cac",
             "href": "http://example.com",
             "deptype": "bob",
-            "children": [
-            {
-                "name": "What It Depends On",
-                "deptype": "bob",
-                "children": [
-                    {
-                    "name": "something.cac.washington.edu",
-                    "short": "something.cac",
-                    "href": "http://example.com"
-                    },
-                    {
-                    "name": "else.cac.washington.edu",
-                    "short": "else.cac",
+            "dependOn": [
+                {
+                    "name": "What It Depends On",
                     "deptype": "bob",
-                    "href": "http://example.com"
-                    }
-                ]
-            },
-            {
-                "name": "Something Else",
-                "children": [
-                {
-                    "name": "DNS Database",
-                    "href": "http://example.com"
+                    "dependOn": [
+                        {
+                        "name": "something.cac.washington.edu",
+                        "short": "something.cac",
+                        "href": "http://example.com"
+                        },
+                        {
+                        "name": "else.cac.washington.edu",
+                        "short": "else.cac",
+                        "deptype": "bob",
+                        "href": "http://example.com"
+                        }
+                    ]
                 },
                 {
-                    "name": "Norns",
-                    "href": "http://example.com"
-                },
-                {
-                    "name": "Parcae",
-                    "href": "http://example.com"
-                },
-                {
-                    "name": "Ymir",
-                    "href": "http://example.com"
+                    "name": "Something Else",
+                    "dependOn": [
+                        {
+                            "name": "DNS Database",
+                            "href": "http://example.com"
+                        },
+                        {
+                            "name": "Norns",
+                            "href": "http://example.com"
+                        },
+                        {
+                            "name": "Parcae",
+                            "href": "http://example.com"
+                        },
+                        {
+                            "name": "Ymir",
+                            "href": "http://example.com"
+                        }
+                    ]
                 }
+
             ]
         }
-
+    ],
+    "dependBy" :[
+        {
+            "name": "DNS Database",
+            "href": "http://example.com"
+        },
+        {
+            "name": "Norns",
+            "href": "http://example.com"
+        },
+        {
+            "name": "Parcae",
+            "href": "http://example.com"
+        },
+        {
+            "name": "Ymir",
+            "href": "http://example.com"
+        }
     ]
-}
-]
 }
