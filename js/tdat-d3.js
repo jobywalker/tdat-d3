@@ -127,7 +127,11 @@ function update(source) {
       .style("padding", "0")
       //.html("<h3>More Text</h3><p>More info</p>");
       .html(function(d) {
-          return   '<div style="border:1px solid #DDD;background-color:#FFF;padding:2px;">chassis CPU<br/>critical/none<br/><a href="https://barista.cac.washington.edu/tdat/'+ d.name + '">center</a></div>';
+          return '<div style="border:1px solid #DDD;background-color:#FFF;padding:2px;">' +
+            d.system_type + '<br/>' +
+            d.criticality_classification + '/' + d.effective_redundancy + '<br/>' +
+            // '<a href="https://barista.cac.washington.edu/tdat/'+ d.name + '">center</a></div>' +
+            '';
       });
 
 
@@ -168,7 +172,19 @@ function update(source) {
         var o = {x: source.x0, y: source.y0};
         return diagonal({source: o, target: o});
       })
-      .attr("style", function(d) { return d.target.deptype==="bob" ? "stroke:#0F0" : "";})
+      .attr("style", function(d) {
+        var dtype = d.target.deptype;
+        if (dtype === "active member") {
+          return "stroke:#0F0";
+        }
+        else if (dtype === "passive member") {
+          return "stroke:#00F";
+        }
+        else if (dtype === "hard dependency") {
+          return "stroke:#FA0";
+        }
+        return "";
+      })
       .transition()
       .duration(duration)
       .attr("d", diagonal);

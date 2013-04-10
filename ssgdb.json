@@ -1,53 +1,93 @@
 {
     "name": "ssgdb.cac.washington.edu",
     "short": "ssgdb.cac",
+    "system_type": "database",
+    "criticality_classification": "critical",
+    "effective_redundancy": "local",
     "href": "http://example.com",
     "dependOn": [
         {
             "name": "ssgdb03.cac.washington.edu",
             "short": "ssgdb03.cac",
+            "deptype": "active member",
+            "system_type": "chassis CPU",
+            "criticality_classification": "critical",
+            "effective_redundancy": "none",
             "href": "http://example.com"
         },
         {
             "name": "ssgdb04.cac.washington.edu",
             "short": "ssgdb04.cac",
             "href": "http://example.com",
-            "deptype": "bob",
+            "system_type": "chassis CPU",
+            "criticality_classification": "critical",
+            "deptype": "passive member",
+            "effective_redundancy": "local",
             "dependOn": [
                 {
                     "name": "What It Depends On",
-                    "deptype": "bob",
+                    "deptype": "active member",
+                    "system_type": "chassis disk",
+                    "criticality_classification": "critical",
+                    "effective_redundancy": "local",
                     "dependOn": [
                         {
-                        "name": "something.cac.washington.edu",
-                        "short": "something.cac",
-                        "href": "http://example.com"
+                            "name": "something.cac.washington.edu",
+                            "short": "something.cac",
+                            "deptype": "active member",
+                            "system_type": "something else",
+                            "criticality_classification": "critical",
+                            "effective_redundancy": "none",
+                            "href": "http://example.com"
                         },
                         {
-                        "name": "else.cac.washington.edu",
-                        "short": "else.cac",
-                        "deptype": "bob",
-                        "href": "http://example.com"
+                            "name": "else.cac.washington.edu",
+                            "short": "else.cac",
+                            "deptype": "passive member",
+                            "system_type": "something else",
+                            "criticality_classification": "critical",
+                            "effective_redundancy": "none",
+                            "href": "http://example.com"
                         }
                     ]
                 },
                 {
                     "name": "Something Else",
+                    "deptype": "active member",
+                    "system_type": "chassis disk",
+                    "criticality_classification": "critical",
+                    "effective_redundancy": "local",
                     "dependOn": [
                         {
-                            "name": "DNS Database",
+                            "name": "Thing A",
+                            "deptype": "active member",
+                            "system_type": "unknown",
+                            "criticality_classification": "critical",
+                            "effective_redundancy": "none",
                             "href": "http://example.com"
                         },
                         {
-                            "name": "Norns",
+                            "name": "Thing B",
+                            "deptype": "passive member",
+                            "system_type": "unknown",
+                            "criticality_classification": "critical",
+                            "effective_redundancy": "none",
                             "href": "http://example.com"
                         },
                         {
-                            "name": "Parcae",
+                            "name": "Thing C",
+                            "deptype": "hard dependency",
+                            "system_type": "unknown",
+                            "criticality_classification": "critical",
+                            "effective_redundancy": "none",
                             "href": "http://example.com"
                         },
                         {
-                            "name": "Ymir",
+                            "name": "Thing D",
+                            "deptype": "soft dependency",
+                            "system_type": "unknown",
+                            "criticality_classification": " - ",
+                            "effective_redundancy": "none",
                             "href": "http://example.com"
                         }
                     ]
@@ -59,19 +99,109 @@
     "dependBy" :[
         {
             "name": "DNS Database",
+            "deptype": "hard dependency",
+            "system_type": "database",
+            "criticality_classification": "critical",
+            "effective_redundancy": "local",
             "href": "http://example.com"
         },
         {
             "name": "Norns",
-            "href": "http://example.com"
+            "deptype": "hard dependency",
+            "system_type": "application",
+            "criticality_classification": "critical",
+            "effective_redundancy": "local",
+            "href": "http://example.com",
+            "dependBy": [
+                {
+                    "name": "Ymir",
+                    "deptype": "hard dependency",
+                    "system_type": "application",
+                    "criticality_classification": "critical",
+                    "effective_redundancy": "local",
+                    "href": "http://example.com",
+                    "dependBy": [
+                        {
+                            "name": "Configuration Management",
+                            "deptype": "hard dependency",
+                            "system_type": "service",
+                            "criticality_classification": "critical",
+                            "effective_redundancy": "local",
+                            "href": "http://example.com"
+                        }
+                    ]
+                }
+            ]
         },
         {
             "name": "Parcae",
+            "deptype": "hard dependency",
+            "system_type": "application",
+            "criticality_classification": " - ",
+            "effective_redundancy": "local",
             "href": "http://example.com"
         },
         {
-            "name": "Ymir",
-            "href": "http://example.com"
+            "name": "Daw",
+            "deptype": "hard dependency",
+            "system_type": "application",
+            "criticality_classification": "critical",
+            "effective_redundancy": "local",
+            "href": "http://example.com",
+            "dependBy": [
+                {
+                    "name": "Computer Operations Dashboard",
+                    "deptype": "hard dependency",
+                    "system_type": "application",
+                    "criticality_classification": "critical",
+                    "effective_redundancy": "local",
+                    "href": "http://example.com"
+                },
+                {
+                    "name": "Puma",
+                    "deptype": "hard dependency",
+                    "system_type": "application",
+                    "criticality_classification": "critical",
+                    "effective_redundancy": "local",
+                    "href": "http://example.com",
+                    "dependBy": [
+                        {
+                            "name": "Configuration Management",
+                            "deptype": "hard dependency",
+                            "system_type": "service",
+                            "criticality_classification": "critical",
+                            "effective_redundancy": "local",
+                            "href": "http://example.com"
+                        }
+                    ]
+                },
+                {
+                    "name": "UW-IT Oncall",
+                    "deptype": "hard dependency",
+                    "system_type": "application",
+                    "criticality_classification": "critical",
+                    "effective_redundancy": "local",
+                    "href": "http://example.com"
+                },
+                {
+                    "name": "Ymir",
+                    "deptype": "hard dependency",
+                    "system_type": "application",
+                    "criticality_classification": "critical",
+                    "effective_redundancy": "local",
+                    "href": "http://example.com",
+                    "dependBy": [
+                        {
+                            "name": "Configuration Management",
+                            "deptype": "hard dependency",
+                            "criticality_classification": "critical",
+                            "system_type": "service",
+                            "effective_redundancy": "local",
+                            "href": "http://example.com"
+                        }
+                    ]
+                }
+            ]
         }
     ]
 }
